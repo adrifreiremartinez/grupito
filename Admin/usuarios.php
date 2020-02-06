@@ -1,10 +1,22 @@
+<?php session_start(); ?>
 <?php require_once "inc/bbdd.php"; ?>
 <?php require_once "inc/funciones.php"; ?>
 <?php require_once "inc/encabezado.php"; ?>
 
 <main role="main" class="container">
 
+<?php
+
+	if(!isset($_SESSION['nombre'])){
+		header("Location: index.php");
+	}
+?>
+
 	<h1 class="mt-5">Listado de Usuarios</h1>
+	
+	<div class='alert alert-warning' role='alert'>
+		Bienvenid@ <?php echo $_SESSION['email']; ?>
+	</div>
 	
 	
 	<p><a href="insertarUsuario.php" class="btn btn-success">Nuevo Usuario</a></p>
@@ -66,7 +78,13 @@ $usuarios = seleccionarUsus($inicio, $usuPagina);
 		  <td><?php  echo $apellidos; ?></td>
 		  <td><?php  echo $direccion; ?></td>
 		  <td><?php  echo $telefono; ?></td>
-		
+		  <td>
+		  
+			<a href="actualizarUsu.php?usuario=<?php  echo $usuario; ?>" class="btn btn-dark">EDITAR</a> 
+			<a href="borrarUsu.php?idUsuario=<?php  echo $idUsuario; ?>" onClick="return Confirmar('¿Realmente quieres borrar el registro?');" class="btn btn-danger">Borrar</a>
+		  
+		  </td>
+		</tr>
 		<?php
 		}//Fin foreach usuarios
 		?>
@@ -96,5 +114,14 @@ $usuarios = seleccionarUsus($inicio, $usuPagina);
 
 
 </main>
+
+<script>
+	
+	function Confirmar(Mensaje){
+		return (confirm(Mensaje))?true:false;
+	}
+
+</script>
+
 
 <?php require_once "inc/pie.php"; ?>

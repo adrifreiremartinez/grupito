@@ -167,18 +167,17 @@ function seleccionarUsus($inicio, $usuPagina){
 //Funcion para insertar usuario
 
 
-function insertarUsuario($idUsuario, $email, $password, $nombre, $apellidos, $direccion, $telefono){
+function insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono){
 	
 	$con = conectarBD();
 	$password = password_hash($password,PASSWORD_DEFAULT);
 	
 	try{
 		
-		$sql = "INSERT INTO usuarios (idUsuario, email, password, nombre, apellidos, direccion, telefono) VALUES (:idUsuario, :email, :password, :nombre, :apellidos, :direccion, :telefono)";
+		$sql = "INSERT INTO usuarios (email, password, nombre, apellidos, direccion, telefono) VALUES (:email, :password, :nombre, :apellidos, :direccion, :telefono)";
 		
 		$stmt = $con->prepare($sql);
 		
-		$stmt->bindParam(':idUsuario', $idUsuario);
 		$stmt->bindParam(':email', $email);
 		$stmt->bindParam(':password', $password);
 		$stmt->bindParam(':nombre', $nombre);
@@ -198,7 +197,59 @@ function insertarUsuario($idUsuario, $email, $password, $nombre, $apellidos, $di
 	return $stmt->rowCount();
 }
 
+//Seleccionar usuario
+function seleccionarUsuario($email){
+	
+	$con = conectarBD();
+	
+	try{
+		
+		$sql="SELECT * FROM usuarios WHERE email=:email";
+		
+		$stmt = $con->prepare($sql);
+		
+		$stmt->bindParam (':email', $email);
+		
+		$stmt->execute();
+		
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+	}catch(PDOException $e){
+		echo "Error: El usuario o la contraseña son incorrectos ".$e->getMessage();
+		
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e->getMessage(), FILE_APPEND);
+		exit;
+	}
+	
+	return $row;
+}
 
+//Funcion borrar usuario
+
+function borrarUsuario ($idUsuario){
+	
+	$con = conectarBD();
+	
+	try {
+		
+		$sql = "DELETE FROM usuarios where idUsuario=:idUsuario";
+		
+		$stmt = $con->prepare($sql);
+		
+		$stmt->bindParam (':idUsuario', $idUsuario);
+		
+		$stmt->execute();
+		
+	}catch(PDOException $e){
+		echo "Error: Error al eliminar usuario: ".$e->getMessage();
+		
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e->getMessage(), FILE_APPEND);
+		exit;
+	}
+	
+	return $stmt->rowCount();
+	
+}
 
 
 

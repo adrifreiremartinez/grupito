@@ -64,34 +64,49 @@ if(!isset($_REQUEST['guardar'])){
 	$apellidos=recoge("apellidos");
 	$direccion=recoge("direccion");
 	$telefono=recoge("telefono");
-//ME QUEDE AQUI
+	
 	$errores="";
 	
-	if($usuario==""){
-		$errores=$errores."<li>El campo usuario no puede estar vacío</li>";
+	if($email==""){
+		$errores=$errores."<li>El campo email no puede estar vacío</li>";
 	}
 	
 	if($password==""){
 		$errores=$errores."<li>El campo password no puede estar vacío</li>";
 	}
 	
+	if($nombre==""){
+		$errores=$errores."<li>El campo nombre no puede estar vacío</li>";
+	}
+	
+	if($apellidos==""){
+		$errores=$errores."<li>El campo apellidos no puede estar vacío</li>";
+	}
+	
+	if($direccion==""){
+		$errores=$errores."<li>El campo dirección no puede estar vacío</li>";
+	}
+	
+	if($telefono==""){
+		$errores=$errores."<li>El campo telefono no puede estar vacío</li>";
+	}
 	
 	if($errores!=""){
 		echo "<h2>ERRORES</h2> <ul>$errores</ul>";
-		impForm($usuario, $password);
+		impForm($email, $password, $nombre, $apellidos, $direccion, $telefono);
 	}else{
-		$idUsuario=insertarUsuario($usuario, $password);
+		$ok=insertarUsuario($email, $password, $nombre, $apellidos, $direccion, $telefono);
 		
-		if($idUsuario!=0){
+		if($ok!=0){
 			echo "<div class='alert alert-success' role='alert'>
-					Usuario $usuario insertado correctamente
+					Usuario $nombre insertado correctamente
 					</div>";
-			echo "<p><a href='login.php' class='btn btn-primary'>Volver al Login</a></p>";
+			echo "<p><a href='usuarios.php' class='btn btn-primary'>Volver a los usuarios</a></p>";
 		}else{
 			echo "<div class='alert alert-danger' role='alert'>
 					ERROR: Usuario NO insertado
 					</div>";
-			impForm($usuario, $password);
+			impForm($email, $password, $nombre, $apellidos, $direccion, $telefono);
 		}
 		
 	}
