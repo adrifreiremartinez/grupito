@@ -1,6 +1,14 @@
 <?php session_start(); ?>
 <?php require_once "inc/bbdd.php"; ?>
 <?php require_once "inc/funciones.php"; ?>
+
+<?php
+
+	$pagina="index";
+	$titulo="Grupito";
+
+?>
+
 <?php require_once "inc/encabezado.php"; ?>
 
 <?php

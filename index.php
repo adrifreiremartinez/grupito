@@ -1,5 +1,14 @@
-<?php require_once("inc/encabezado.php") ?>
 <?php require_once("bbdd/bbdd.php") ?>
+<?php require_once("inc/funciones.php"); ?>
+<?php
+
+	$pagina="index";
+	$titulo="Grupito";
+
+?>
+
+<?php require_once("inc/encabezado.php") ?>
+
 
 <?php 
 
@@ -18,26 +27,12 @@ $productos = seleccionarOfertasPortada(NUMOFERTAS);
   </div>
 
   <div class="container">
-    <!-- Example row of columns -->
-<div class="row row-cols-1 row-cols-md-3">
 
-	<?php foreach ($productos as $producto){ ?>
-  <div class="col mb-4">
-    <div class="card">
-      <img src="imagenes/spa.jpg" class="card-img-top" alt="Invernalia">
-      <div class="card-body">
-        <h5 class="card-title"><?php echo $producto['nombre']; ?></h5>
-        <p class="card-text"><?php  echo $producto['introDescripcion']; ?></p>
-		<a href="#" class="btn btn-success"><?php  echo $producto['precioOferta']; ?></a>
-		<span class="card-text text-danger float-right"><del><?php  echo $producto['precio']; ?><del></span>
-      </div>
-    </div>
-  </div>
-  
-	<?php } 
-	//FIN del foreach?> 
-  
-</div> <!-- col rows -->
+	<?php
+	
+		mostrarProductos($productos);
+	
+	?>
 
     <hr>
 
