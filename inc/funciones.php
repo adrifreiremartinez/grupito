@@ -82,7 +82,7 @@ function mostrarProductos($productos){
     <div class="card">
 
 
-      <img src="imagenes/spa.jpg" class="card-img-top" alt="Invernalia">
+      <img src="imagenes/<?php echo $producto['imagen'];?>" class="card-img-top" alt="">
 
 
       <div class="card-body">
@@ -128,6 +128,68 @@ function mostrarProductos($productos){
 
 
 }  /* Función mostrarProductos */
+
+?>
+
+<?php
+//Funcion para mostrar mensaje
+
+function mostrarMensaje($mensaje){
+?>
+	<div class="jumbotron">
+    <div class="container">
+      <h1 class="display-3"><?php echo $mensaje; ?></h1>
+    </div>
+  </div>
+  
+  
+<?php
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 ?>

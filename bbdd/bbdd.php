@@ -17,7 +17,7 @@ function conectarBD(){
 	}
 	return $con;
 }
-
+ 
 //Funcion para desconectar BD
 
 function desconectarBD($con){
@@ -115,7 +115,7 @@ function seleccionarTodosProd(){
 
 //Seleccionar producto
 
-<?php 
+
 
 
 function seleccionarProducto($idProducto){
