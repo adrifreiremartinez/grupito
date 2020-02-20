@@ -181,6 +181,36 @@ function seleccionarProds($inicio, $prodPagina){
 	
 }
 
+
+//Seleccionar usuario
+function seleccionarUsuario($email){
+	
+	$con = conectarBD();
+	
+	try{
+		
+		$sql="SELECT * FROM usuarios WHERE email=:email";
+		
+		$stmt = $con->prepare($sql);
+		
+		$stmt->bindParam (':email', $email);
+		
+		$stmt->execute();
+		
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+		
+	}catch(PDOException $e){
+		echo "Error: El usuario o la contraseña son incorrectos ".$e->getMessage();
+		
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e->getMessage(), FILE_APPEND);
+		exit;
+	}
+	
+	return $row;
+}
+
+
+
 //Funcion seleccionar todos los usuarios
 
 function seleccionarTodosUsu(){
@@ -268,5 +298,102 @@ function insertarUsuario($idUsuario, $email, $password, $nombre, $apellidos, $di
 	
 	return $stmt->rowCount();
 }
+
+
+
+
+
+
+//Funcion para insertar pedido
+
+
+function insertarPedido($idUsuario, $detallePedido, $total){
+	
+	$con = conectarBD();
+	
+	try{
+		
+		$con -> beginTransaction();
+		
+		$sql = "INSERT INTO pedidos (idUsuario, total) VALUES (:idUsuario, :total)";
+		$stmt = $con->prepare($sql);
+		
+		$stmt = bindparam(":idUsuario", $idUsuario);
+		$stmt = bindparam(":total", $total);
+		
+		$stmt->execute();
+		
+		$idPedido = $con->lastInsertId();
+		
+		foreach ($detallePedido as $idProducto => $cantidad){
+			
+			$producto = seleccionarProducto($idProducto);
+			$precio = $producto['precioOferta'];
+			
+			$sql2 = "INSERT INTO detallePedido (idPedido, idProducto, cantidad, precio) VALUES (:idPedido, :idProducto, :cantidad, :precio)";
+			
+			$stmt = $con->prepare($sql2);
+		
+			$stmt = bindparam(":idPedido", $idPedido);
+			$stmt = bindparam(":idProducto", $idProducto);
+			$stmt = bindparam(":cantidad", $cantidad);
+			$stmt = bindparam(":precio", $precio);
+			
+			$stmt->execute();
+			
+		}
+		
+		$con -> commit();
+		
+	}catch(PDOException $e){
+		
+		$con -> rollback();
+		
+		echo "Error: Error al insertar pedido: ".$e->getMessage();
+		
+		file_put_contents("PDOErrors.txt", "\r\n".date('j F, Y, g:i a ').$e->getMessage(), FILE_APPEND);
+		exit;
+	}
+	
+	
+return $idPedido;
+	
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ?>
