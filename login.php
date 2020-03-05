@@ -1,6 +1,12 @@
 <?php session_start();?>
 <?php require_once "bbdd/bbdd.php"; ?>
 <?php require_once "inc/funciones.php"; ?>
+<?php
+
+	$pagina="login";
+	$titulo="Identificate";
+
+?>
 <?php require_once "inc/encabezado.php"; ?>
 
 
@@ -23,7 +29,6 @@ function imprimirFormulario(){
 <?php
 }
 ?>
-
 <main role="main" class="container">
 
 	<h1 class="mt-5">Acceso</h1>
@@ -53,7 +58,7 @@ function imprimirFormulario(){
 			imprimirFormulario();
 		}else{
 			$_SESSION['email']=$email;
-			echo "Holaaaaaaaaaaa";
+			$_SESSION['nombre']=$user['nombre'];;
 			header("Location: carrito.php");
 		}
 	}

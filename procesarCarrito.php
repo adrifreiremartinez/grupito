@@ -49,7 +49,7 @@ switch($op){
 		
 }//Fin del switch
 
-header("Location: index.php");
+header("Location: carrito.php");
  
 ?>
 

@@ -85,8 +85,8 @@ $titulo="Tu compra";
   </tfoot>
 </table>
 
-	<a href ="procesarCarrito.php?id=<?php echo $id; ?>&op=empty" class="btn btn-danger">Vaciar Carrito</a>
-	<a href ="confirmarPedido.php" class="btn btn-success">Confirmar Pedido</a>
+	<a href="procesarCarrito.php?id=<?php echo $id; ?>&op=empty" class="btn btn-danger">Vaciar Carrito</a>
+	<a href="confirmarPedido.php" class="btn btn-success">Confirmar Pedido</a>
 	
 </div>
 

@@ -105,10 +105,10 @@
 			
 				<?php
 				
-					if (isset ($_SESSION['usuario'])){
+					if (isset ($_SESSION['email'])){
 				?>		
 						<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido Fulanito</a>
+					<a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Bienvenido <?php echo $_SESSION['nombre']; ?></a>
 					<div class="dropdown-menu" aria-labelledby="dropdown01">
 					  <a class="dropdown-item" href="misDatos.php">Mis Datos</a>
 					  <a class="dropdown-item" href="misPedidos.php">Mis Pedidos</a>
@@ -126,7 +126,6 @@
 				
 				</li>
 					
-				?>
 
 				<?php
 				
